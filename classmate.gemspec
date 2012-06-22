@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
     "LICENSE",
     "README.md"
   ]
-  s.homepage = "http://github.com/ahmadeeva-su/classmate"
+  s.homepage = "https://github.com/ahmadeeva-su/classmate"
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.13"
   s.summary = "Odnoklassniki integration for Rack & Rails application"

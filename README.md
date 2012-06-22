@@ -1,12 +1,12 @@
-Facepalm
+Classmate
 ===========
 
-Provides a set of classes, methods, and helpers to ease development of Facebook applications with Rails.
+Provides a set of classes, methods, and helpers to ease development of Odnoklassniki.ru applications with Rails.
 
 Installation
 ------------
 
-In order to install Facepalm you should add it to your Gemfile:
+In order to install Classmate you should add it to your Gemfile:
 
     gem 'classmate'
 
