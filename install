@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+bundle exec rake gemspec:generate build
+cd pkg
+gem uninstall classmate
+gem install --local classmate
+cd ..
