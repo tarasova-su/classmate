@@ -20,7 +20,9 @@ module Classmate
           encryptor = ActiveSupport::MessageEncryptor.new("secret_key_#{config.secret_key}")
           
           encryptor.decrypt_and_verify(encrypted_params)
-        rescue ActiveSupport::MessageEncryptor::InvalidMessage, ActiveSupport::MessageVerifier::InvalidSignature 
+        rescue ActiveSupport::MessageEncryptor::InvalidMessage, ActiveSupport::MessageVerifier::InvalidSignature
+          ::Rails.logger.error "\nError while decoding classmate params: \"#{ encrypted_params }\""
+
           nil
         end
         
