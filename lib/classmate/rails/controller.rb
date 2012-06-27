@@ -22,7 +22,7 @@ module Classmate
 
       protected
 
-      CLASSMATE_PARAM_NAMES = %w{logged_user_id api_server application_key session_key session_secret_key authorized apiconnection refplace referer auth_sig sig custom_args }
+      CLASSMATE_PARAM_NAMES = %w{logged_user_id api_server application_key session_key session_secret_key authorized apiconnection refplace referer auth_sig sig custom_args ip_geo_location }
       DEBUG_PARAMS = %w{first_start clientLog web_server}
 
       # Accessor to current application config. Override it in your controller
