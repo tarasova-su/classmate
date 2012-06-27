@@ -42,11 +42,6 @@ module Classmate
       !session_key.blank?
     end
 
-    # if user has authorized the app
-    def authorized?
-      !session_key.blank?
-    end
-
     # Odnoklassniki UID
     def uid
       @options['logged_user_id']
@@ -74,25 +69,9 @@ module Classmate
       @options['referer']
     end
 
-    # The code used for OAuth 2.0
-    #def oauth_code
-    #  @options['code']
-    #end
-
-    # OAuth 2.0 access token generated for this user
-    #def access_token
-    #  @options['access_token'] || @options['oauth_token']
-    #end
-
-    # Token expiration time
-    #def access_token_expires_at
-    #  Time.at(@options['expires'])
-    #end
-
     # Odnoklassniki API client instantiated with user's session key
     def api_client
       @api_client ||= Classmate::Api::Client.new(session_key, secret_session_key)
     end
   end
-
 end
