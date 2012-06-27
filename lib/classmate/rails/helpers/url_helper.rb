@@ -16,7 +16,7 @@ module Classmate
 
             url = super(options.except(:signed_params))
 
-            canvas ? classmate.canvas_page_url(protocol || request.protocol) + url : url
+            canvas ? classmate.canvas_page_url(request.protocol) + url : url
           else
             super
           end
