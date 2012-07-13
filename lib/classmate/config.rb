@@ -44,5 +44,9 @@ module Classmate
     def callback_url(protocol)
       protocol + callback_domain
     end
+
+    def api_client
+      Classmate::Api::Client.new(nil, nil)
+    end
   end
 end

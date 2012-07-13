@@ -44,9 +44,10 @@ module Classmate
         params = {
           :method      => method,
           :application_key  => Classmate::Config.default.public_key,
-          :format      => 'json',
-          :session_key => session_key
+          :format      => 'json'
         }.merge(specific_params.symbolize_keys)
+
+        params.merge!(:session_key => session_key) if session_key
           
         sig = calculate_signature(params)
 
