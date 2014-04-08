@@ -21,11 +21,12 @@ module Classmate
                 #{extra_js}
               },
               function(error) {
+                console.log('ERROR INITIALIZING FAPI5');
               }
             );
           JAVASCRIPT
 
-          js_url = "#{options[:api_server]}js/fapi.js"
+          js_url = "#{options[:api_server]}js/fapi5.js"
 
           js = <<-CODE
             <script src="#{ js_url }" type="text/javascript"></script>

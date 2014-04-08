@@ -37,7 +37,9 @@ module Classmate
 
     # URL of the application canvas page
     def canvas_page_url(protocol)
-      "#{ protocol }www.odnoklassniki.ru/games/#{ namespace }"
+      # "#{ protocol }www.odnoklassniki.ru/games/#{ namespace }"
+      # FIXME namespace link only works for public apps
+      "#{ protocol }www.odnoklassniki.ru/games/#{ app_id }"
     end
 
     # Application callback URL

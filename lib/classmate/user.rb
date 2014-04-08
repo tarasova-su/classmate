@@ -9,28 +9,27 @@ module Classmate
       # Creates an instance of Moymir::User using application config and request parameters
       def from_classmate_params(config, params)
         params = decrypt(config, params) if params.is_a?(String)
-        
-        return if params.nil? || params['logged_user_id'].nil? || !signature_valid?(config, params)
-        
+
+        return unless params && params['logged_user_id'] && signature_valid?(config, params)
+
         new(params)
       end
 
-      protected
-        def decrypt(config, encrypted_params)
-          encryptor = ActiveSupport::MessageEncryptor.new("secret_key_#{config.secret_key}")
+      def decrypt(config, encrypted_params)
+        encryptor = ActiveSupport::MessageEncryptor.new("secret_key_#{config.secret_key}")
           
-          encryptor.decrypt_and_verify(encrypted_params)
-        rescue ActiveSupport::MessageEncryptor::InvalidMessage, ActiveSupport::MessageVerifier::InvalidSignature
-          ::Rails.logger.error "\nError while decoding classmate params: \"#{ encrypted_params }\""
+        encryptor.decrypt_and_verify(encrypted_params)
+      rescue ActiveSupport::MessageEncryptor::InvalidMessage, ActiveSupport::MessageVerifier::InvalidSignature
+        ::Rails.logger.error "\nError while decoding classmate params: \"#{ encrypted_params }\""
 
-          nil
-        end
-        
-        def signature_valid?(config, params)
-          param_string = params.except('sig').sort.map{|key, value| "#{key}=#{value}"}.join
+        nil
+      end
+
+      def signature_valid?(config, params)
+        param_string = params.except('sig').sort.map{|key, value| "#{key}=#{value}"}.join
           
-          params['sig'] == Digest::MD5.hexdigest(param_string + config.secret_key)
-        end
+        params['sig'] == Digest::MD5.hexdigest(param_string + config.secret_key)
+      end
     end
 
     def initialize(options = {})

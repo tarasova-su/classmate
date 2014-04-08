@@ -12,7 +12,7 @@ module Classmate
 
         # Overrides ActionController::Base#redirect_to to pass signed_params in flash[]
         def redirect_to_with_signed_params(*args)
-          flash['signed_params'] = signed_params
+          flash[:signed_params] = cm_signed_params
           
           redirect_to_without_signed_params(*args)
         end

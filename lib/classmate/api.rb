@@ -15,6 +15,15 @@ module Classmate
         body.is_a?(Hash) && body['error_code'].present?
       end
     end
+
+    class APIError < StandardError
+      attr_accessor :cm_error_type
+
+      def initialize(details = {})
+        self.cm_error_type = details["type"]
+        super("#{cm_error_type}: #{details["message"]}")
+      end
+    end
     
     class Client
       REST_API_URL = "http://api.odnoklassniki.ru/fb.do"
@@ -28,9 +37,9 @@ module Classmate
       
       def call(method, specific_params = {})
         result = make_request(method, specific_params)
-        
+
         raise APIError.new({"type" => "HTTP #{result.status.to_s}", "message" => "Response body: #{result.body}"}) if result.status >= 500
-        
+
         body = begin
           JSON.parse(result.body.to_s)
         rescue Exception => e
@@ -42,9 +51,9 @@ module Classmate
 
       def signed_call_params(method, specific_params = {})
         params = {
-          :method      => method,
-          :application_key  => Classmate::Config.default.public_key,
-          :format      => 'json'
+          :method          => method,
+          :application_key => Classmate::Config.default.public_key,
+          :format          => 'json'
         }.merge(specific_params.symbolize_keys)
 
         params.merge!(:session_key => session_key) if session_key

@@ -5,23 +5,46 @@
 
 Gem::Specification.new do |s|
   s.name = "classmate"
-  s.version = "0.1"
+  s.version = "0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Svetlana Akhmadeeva"]
-  s.date = "2012-06-20"
+  s.date = "2014-03-21"
   s.email = "ahmadeeva.su@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE",
     "README.md"
   ]
-  s.homepage = "https://github.com/ahmadeeva-su/classmate"
+  s.files = [
+    "Gemfile",
+    "Gemfile.lock",
+    "LICENSE",
+    "README.md",
+    "Rakefile",
+    "VERSION",
+    "classmate.gemspec",
+    "init.rb",
+    "install",
+    "lib/classmate.rb",
+    "lib/classmate/api.rb",
+    "lib/classmate/config.rb",
+    "lib/classmate/engine.rb",
+    "lib/classmate/rack/post_canvas_middleware.rb",
+    "lib/classmate/rails/controller.rb",
+    "lib/classmate/rails/controller/redirects.rb",
+    "lib/classmate/rails/controller/url_rewriting.rb",
+    "lib/classmate/rails/helpers.rb",
+    "lib/classmate/rails/helpers/javascript_helper.rb",
+    "lib/classmate/rails/helpers/url_helper.rb",
+    "lib/classmate/user.rb"
+  ]
+  s.homepage = "http://github.com/ahmadeeva-su/classmate"
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.13"
+  s.rubygems_version = "2.0.3"
   s.summary = "Odnoklassniki integration for Rack & Rails application"
 
   if s.respond_to? :specification_version then
-    s.specification_version = 3
+    s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<ie_iframe_cookies>, ["~> 0.1.2"])

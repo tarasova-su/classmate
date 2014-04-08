@@ -14,7 +14,9 @@ module Classmate
           # Fix cookie permission issue in IE
           before_filter :normal_cookies_for_ie_in_iframes!
 
-          helper_method(:classmate, :classmate_params, :signed_params, :current_classmate_user, :params_without_classmate_data, :init_js_params)
+          helper_method(:classmate, :classmate_params, :cm_signed_params, :current_classmate_user,
+            :params_without_classmate_data, :init_js_params, :cm_canvas?
+          )
 
           helper Classmate::Rails::Helpers
         end
@@ -22,7 +24,7 @@ module Classmate
 
       protected
 
-      CLASSMATE_PARAM_NAMES = %w{logged_user_id api_server application_key session_key session_secret_key authorized apiconnection refplace referer auth_sig sig custom_args ip_geo_location }
+      CLASSMATE_PARAM_NAMES = %w{logged_user_id api_server application_key session_key session_secret_key authorized apiconnection refplace referer auth_sig sig custom_args ip_geo_location new_sig }
       DEBUG_PARAMS = %w{first_start clientLog web_server}
 
       # Accessor to current application config. Override it in your controller
@@ -47,11 +49,11 @@ module Classmate
       end
 
       # encrypted classmate params
-      def signed_params
+      def cm_signed_params
         if classmate_params['session_key'].present?
           encrypt(classmate_params)
         else
-          request.env["HTTP_SIGNED_PARAMS"] || request.params['signed_params'] || flash['signed_params']
+          request.env["HTTP_SIGNED_PARAMS"] || request.params['signed_params'] || flash[:signed_params]
         end
       end
 
@@ -60,14 +62,19 @@ module Classmate
         if classmate_params['session_key'].present?
           classmate_params.slice('api_server', 'apiconnection')
         else
-          decrypt(signed_params).try(:slice, 'api_server', 'apiconnection')
+          decrypt(cm_signed_params).try(:slice, 'api_server', 'apiconnection')
         end
       end
-      
+
+      # Did the request come from canvas app
+      def cm_canvas?
+        classmate_params['session_key'].present? || request.env['HTTP_SIGNED_PARAMS'].present? || flash[:signed_params].present?
+      end
+
       private
 
         def fetch_current_classmate_user
-          Classmate::User.from_classmate_params(classmate, classmate_params['session_key'].present? ? classmate_params : signed_params)
+          Classmate::User.from_classmate_params(classmate, classmate_params['session_key'].present? ? classmate_params : cm_signed_params)
         end
 
         def encrypt(params)
