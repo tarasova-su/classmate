@@ -71,7 +71,7 @@ module Classmate
 
     # Odnoklassniki API client instantiated with user's session key
     def api_client
-      @api_client ||= Classmate::Api::Client.new(session_key, secret_session_key)
+      @api_client ||= Classmate::Api::Client.new(session_key, session_secret_key)
     end
   end
 end
