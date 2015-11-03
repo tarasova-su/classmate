@@ -8,7 +8,7 @@ require 'classmate/api'
 require 'classmate/config'
 require 'classmate/user'
 
-require 'classmate/rack/post_canvas_middleware'
+require 'classmate/middleware'
 
 # Rails integration
 require 'classmate/rails/controller'
