@@ -6,7 +6,7 @@ module Classmate
     class InvalidSignature < StandardError; end
 
     class << self
-      # Creates an instance of Moymir::User using application config and request parameters
+      # Creates an instance of Classmate::User using application config and request parameters
       def from_classmate_params(config, params)
         params = decrypt(config, params) if params.is_a?(String)
 
